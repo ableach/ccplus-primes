@@ -9,6 +9,9 @@ int main(int argc, char *argv[]) {
     int primeUpperRange;
     if ( argc == 2 ) {
         primeUpperRange = atoi(argv[1]);
+        if (primeUpperRange>100) {
+            primeUpperRange = 100;
+        }
     } else {
         primeUpperRange = 30;   
     }
