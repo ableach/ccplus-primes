@@ -3,9 +3,15 @@ Author: ableach
 Date: 01/01/21
 */
 #include <stdio.h>
+#include <stdlib.h>
 
-int main() {
-    int primeUpperRange = 30;
+int main(int argc, char *argv[]) {
+    int primeUpperRange;
+    if ( argc == 2 ) {
+        primeUpperRange = atoi(argv[1]);
+    } else {
+        primeUpperRange = 30;   
+    }
     int primes[100] = {1,2};
     int notPrime;
     double test;
@@ -20,7 +26,6 @@ int main() {
             for ( int previousPrime=1; previousPrime<primeElement; previousPrime++) { // can the candidate be devided evenly by previous prime?
                 test = candidate % primes[previousPrime];
                 if ( test == 0 ) {
-                    //printf("%f is greater or equal to %i so %i is not prime.\n", test, primes[previousPrime], candidate );
                     printf("%i can be divided by %i so it is not prime.\n", candidate, primes[previousPrime] );
                     isPrime=0;
                     break; // candidate is not prime
@@ -37,6 +42,8 @@ int main() {
     printf("\n\nResults:\n");
     printf("--------\n");
     for ( int i=0; i<primeUpperRange; i++) {
+        if ( primes[i] == 0) 
+            break;
         printf("%i = %i\n", i, primes[i]);
     }
     return 0;
