@@ -16,33 +16,29 @@ int main(int argc, char *argv[]) {
     } else {
         primeUpperRange = 30;   
     }
-    int primes[100] = {1,2};
-    int notPrime;
+
+    int primes[100] = {0};
+    primes[0] = 2;
+    int primeElement = 1;
     double test;
     bool isPrime;
-
-    for ( int primeElement=2; primeElement<primeUpperRange; primeElement++) { // build the array of primes
+    
+    for ( int candidate=3; candidate<=primeUpperRange; candidate += 2) { // loop through candidates
         printf("Filling prime array element %i.\n ", primeElement);
-        // for each slot, start at the last prime found
-        for ( int candidate=3; candidate<=primeUpperRange; candidate += 2) { // loop through candidates
-            isPrime=true; // asume prime until proved otherwise
-            printf("checking %i:\n", candidate);
-            for ( int previousPrime=1; previousPrime<primeElement; previousPrime++) { // can the candidate be devided evenly by previous prime?
-                test = candidate % primes[previousPrime];
-                if ( test == 0 ) {
-                    printf("%i can be divided by %i so it is not prime.\n", candidate, primes[previousPrime] );
-                    isPrime=false;
-                    break; // candidate is not prime
-                } else {
-                    printf("%i: %i could be prime.\n", previousPrime, candidate);
-                }
-            }
-            if ( isPrime ) {
-                primes[primeElement] = candidate;
-                break;
+        isPrime=true; // asume prime until proved otherwise
+        printf("checking %i:\n", candidate);
+        for ( int previousPrime=1; isPrime && previousPrime<primeElement; previousPrime++) { // can the candidate be devided evenly by previous prime?
+            test = candidate % primes[previousPrime];
+            if ( test == 0 ) {
+                //printf("%i can be divided by %i so it is not prime.\n", candidate, primes[previousPrime] );
+                isPrime=false;
             }
         }
+        if ( isPrime ) {
+            primes[primeElement++] = candidate;
+        }
     }
+    
     printf("\n\nResults:\n");
     printf("--------\n");
     for ( int i=0; i<primeUpperRange; i++) {
